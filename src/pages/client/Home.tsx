@@ -28,19 +28,21 @@ export const Home = () => {
 
         <Box sx={{ mt: 4 }}>
           <Grid container spacing={4}>
-            {/*<Grid item xs={12} md={4}> */}
-            <Grid sx={{ width: { xs: "100%", md: "33.333%" } }}>
+            <Grid
+              sx={{ width: { xs: "100%", sm: "50%", md: "33.333%" }, p: 2 }}
+            >
               <Card sx={{ height: "100%" }}>
                 <CardContent>
                   <Typography variant="h5" component="div">
-                    Khách hàng
+                    Sinh Viên
                   </Typography>
                   <Typography
                     variant="body2"
                     color="text.secondary"
                     sx={{ mt: 2 }}
                   >
-                    Đăng nhập để sử dụng máy tính và quản lý tài khoản cá nhân.
+                    Đăng nhập để sử dụng máy tính và quản lý tài khoản cá nhân
+                    của sinh viên
                   </Typography>
                   <Button
                     component={Link}
@@ -53,18 +55,20 @@ export const Home = () => {
                 </CardContent>
               </Card>
             </Grid>
-            <Grid sx={{ width: { xs: "100%", md: "33.333%" } }}>
+            <Grid
+              sx={{ width: { xs: "100%", sm: "50%", md: "33.333%" }, p: 2 }}
+            >
               <Card sx={{ height: "100%" }}>
                 <CardContent>
                   <Typography variant="h5" component="div">
-                    Nhân viên
+                    Giáo Viên
                   </Typography>
                   <Typography
                     variant="body2"
                     color="text.secondary"
                     sx={{ mt: 2 }}
                   >
-                    Quản lý máy tính, phiên làm việc và tài khoản khách hàng.
+                    Quản lý máy tính, phiên làm việc và tài khoản sinh viên
                   </Typography>
                   <Button
                     component={Link}
@@ -77,7 +81,9 @@ export const Home = () => {
                 </CardContent>
               </Card>
             </Grid>
-            <Grid sx={{ width: { xs: "100%", md: "33.333%" } }}>
+            <Grid
+              sx={{ width: { xs: "100%", sm: "50%", md: "33.333%" }, p: 2 }}
+            >
               <Card sx={{ height: "100%" }}>
                 <CardContent>
                   <Typography variant="h5" component="div">
@@ -88,7 +94,7 @@ export const Home = () => {
                     color="text.secondary"
                     sx={{ mt: 2 }}
                   >
-                    Quản lý toàn bộ hệ thống, nhân viên và thống kê.
+                    Quản lý toàn bộ hệ thống, sinh viên và thống kê.
                   </Typography>
                   <Button
                     component={Link}

@@ -5,7 +5,7 @@ import { LoginRequest, AuthResponse, RegisterRequest } from "../types/dto";
 const authService = {
   login: async (credentials: LoginRequest) => {
     const response = await api.post<ApiResponse<AuthResponse>>(
-      "/auth/login",
+      "/Auth/login",
       credentials
     );
     return response.data;
@@ -13,7 +13,7 @@ const authService = {
 
   register: async (userData: RegisterRequest) => {
     const response = await api.post<ApiResponse<AuthResponse>>(
-      "/user",
+      "/User",
       userData
     );
     return response.data;
@@ -25,7 +25,7 @@ const authService = {
   },
 
   getCurrentUser: async () => {
-    const response = await api.get<ApiResponse<AuthResponse>>("/user/current");
+    const response = await api.get<ApiResponse<AuthResponse>>("/User/current");
     return response.data;
   },
 };

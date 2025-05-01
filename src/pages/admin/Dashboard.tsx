@@ -1,7 +1,7 @@
-// src/pages/admin/Dashboard.tsx
 import React, { useState, useEffect } from "react";
-import { Typography, Grid, Paper } from "@mui/material";
+import { Typography, Grid, Paper, CircularProgress, Box } from "@mui/material";
 import { AdminLayout } from "../../components/layout/AdminLayout";
+import statisticsService from "../../services/statisticsService";
 
 interface DashboardStats {
   totalUsers: number;
@@ -13,26 +13,64 @@ interface DashboardStats {
 }
 
 export const Dashboard = () => {
-  const [stats, setStats] = useState<DashboardStats>({
-    totalUsers: 0,
-    activeUsers: 0,
-    totalComputers: 0,
-    computersInUse: 0,
-    todayRevenue: 0,
-    monthRevenue: 0,
-  });
+  const [stats, setStats] = useState<DashboardStats | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    // Giả lập dữ liệu thống kê
-    setStats({
-      totalUsers: 45,
-      activeUsers: 12,
-      totalComputers: 25,
-      computersInUse: 15,
-      todayRevenue: 1500000,
-      monthRevenue: 25000000,
-    });
+    const fetchDashboardStats = async () => {
+      try {
+        setIsLoading(true);
+        const response = await statisticsService.getSummary();
+
+        if (response.data?.success) {
+          setStats(response.data.data);
+          setError(null);
+        } else {
+          setError(response.data?.message || "Không thể tải thống kê");
+        }
+      } catch (err) {
+        console.error("Lỗi khi tải dashboard:", err);
+        setError("Đã xảy ra lỗi khi tải dữ liệu");
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchDashboardStats();
   }, []);
+
+  if (isLoading) {
+    return (
+      <AdminLayout>
+        <Box
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          minHeight="60vh"
+        >
+          <CircularProgress />
+        </Box>
+      </AdminLayout>
+    );
+  }
+
+  if (error) {
+    return (
+      <AdminLayout>
+        <Box
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          minHeight="60vh"
+        >
+          <Typography variant="h6" color="error">
+            {error}
+          </Typography>
+        </Box>
+      </AdminLayout>
+    );
+  }
 
   return (
     <AdminLayout>
@@ -50,7 +88,7 @@ export const Dashboard = () => {
               Tổng số người dùng
             </Typography>
             <Typography component="p" variant="h4" sx={{ mt: 2 }}>
-              {stats.totalUsers}
+              {stats?.totalUsers ?? 0}
             </Typography>
           </Paper>
         </Grid>
@@ -64,7 +102,7 @@ export const Dashboard = () => {
               Người dùng đang hoạt động
             </Typography>
             <Typography component="p" variant="h4" sx={{ mt: 2 }}>
-              {stats.activeUsers}
+              {stats?.activeUsers ?? 0}
             </Typography>
           </Paper>
         </Grid>
@@ -78,7 +116,7 @@ export const Dashboard = () => {
               Tổng số máy tính
             </Typography>
             <Typography component="p" variant="h4" sx={{ mt: 2 }}>
-              {stats.totalComputers}
+              {stats?.totalComputers ?? 0}
             </Typography>
           </Paper>
         </Grid>
@@ -92,7 +130,7 @@ export const Dashboard = () => {
               Máy tính đang sử dụng
             </Typography>
             <Typography component="p" variant="h4" sx={{ mt: 2 }}>
-              {stats.computersInUse}
+              {stats?.computersInUse ?? 0}
             </Typography>
           </Paper>
         </Grid>
@@ -106,7 +144,7 @@ export const Dashboard = () => {
               Doanh thu hôm nay
             </Typography>
             <Typography component="p" variant="h4" sx={{ mt: 2 }}>
-              {stats.todayRevenue.toLocaleString("vi-VN")} VNĐ
+              {(stats?.todayRevenue ?? 0).toLocaleString("vi-VN")} VNĐ
             </Typography>
           </Paper>
         </Grid>
@@ -120,7 +158,7 @@ export const Dashboard = () => {
               Doanh thu tháng
             </Typography>
             <Typography component="p" variant="h4" sx={{ mt: 2 }}>
-              {stats.monthRevenue.toLocaleString("vi-VN")} VNĐ
+              {(stats?.monthRevenue ?? 0).toLocaleString("vi-VN")} VNĐ
             </Typography>
           </Paper>
         </Grid>

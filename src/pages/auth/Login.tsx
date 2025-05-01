@@ -1,4 +1,3 @@
-// src/pages/auth/Login.tsx
 import React, { useState } from "react";
 import {
   TextField,
@@ -42,7 +41,6 @@ export const Login = () => {
       const response = await authService.login(formData);
 
       if (response.success) {
-        // Lưu token vào localStorage
         localStorage.setItem("token", response.data.token);
         localStorage.setItem("user", JSON.stringify(response.data));
 
