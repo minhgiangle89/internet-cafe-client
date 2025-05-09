@@ -21,6 +21,7 @@ interface RegisterError {
   message: string;
 }
 
+// Chỉnh sửa tên export để match với import trong routes
 export const Register = () => {
   const [formData, setFormData] = useState<RegisterRequest>({
     username: "",
@@ -154,7 +155,6 @@ export const Register = () => {
                 onChange={handleChange}
               />
             </Grid>
-            {/*<Grid item xs={12} sm={6}> */}
             <Grid sx={{ width: { xs: "100%", sm: "50%" } }}>
               <TextField
                 required
@@ -197,3 +197,5 @@ export const Register = () => {
     </Container>
   );
 };
+
+export default Register;

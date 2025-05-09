@@ -5,6 +5,9 @@ import { Register } from "../pages/auth/Register";
 import { Dashboard } from "../pages/admin/Dashboard";
 import { Home } from "../pages/client/Home";
 import { ProtectedRoute } from "../components/common/ProtectedRoute";
+import { Profile } from "../pages/user/Profile";
+import { ChangePassword } from "../pages/user/ChangePassword";
+import { AccountDetail } from "../pages/user/AccountDetail";
 import { Typography, Container, Box, Button } from "@mui/material";
 import { Link } from "react-router-dom";
 
@@ -67,6 +70,33 @@ const router = createBrowserRouter([
     element: (
       <ProtectedRoute requiredRole={[2]}>
         <Dashboard />
+      </ProtectedRoute>
+    ),
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/profile",
+    element: (
+      <ProtectedRoute>
+        <Profile />
+      </ProtectedRoute>
+    ),
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/change-password",
+    element: (
+      <ProtectedRoute>
+        <ChangePassword />
+      </ProtectedRoute>
+    ),
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/account",
+    element: (
+      <ProtectedRoute>
+        <AccountDetail />
       </ProtectedRoute>
     ),
     errorElement: <ErrorPage />,

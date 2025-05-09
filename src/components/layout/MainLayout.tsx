@@ -6,9 +6,17 @@ import {
   Toolbar,
   Typography,
   Button,
+  Menu,
+  MenuItem,
+  Divider,
+  ListItemIcon,
 } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 import authService from "../../services/authService";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import ExitToAppIcon from "@mui/icons-material/ExitToApp";
+import VpnKeyIcon from "@mui/icons-material/VpnKey";
+import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
 
 interface MainLayoutProps {
   children: React.ReactNode;
@@ -19,9 +27,25 @@ export const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
   const userStr = localStorage.getItem("user");
   const user = userStr ? JSON.parse(userStr) : null;
 
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const open = Boolean(anchorEl);
+
+  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
   const handleLogout = () => {
     authService.logout();
     navigate("/login");
+  };
+
+  const handleMenuItemClick = (path: string) => {
+    navigate(path);
+    handleClose();
   };
 
   return (
@@ -35,10 +59,75 @@ export const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
           </Typography>
           {user ? (
             <>
-              <Typography sx={{ mr: 2 }}>Xin chào, {user.username}</Typography>
-              <Button color="inherit" onClick={handleLogout}>
-                Đăng xuất
+              <Button
+                color="inherit"
+                onClick={handleClick}
+                startIcon={<AccountCircleIcon />}
+              >
+                {user.username}
               </Button>
+              <Menu
+                anchorEl={anchorEl}
+                open={open}
+                onClose={handleClose}
+                onClick={handleClose}
+                PaperProps={{
+                  elevation: 0,
+                  sx: {
+                    overflow: "visible",
+                    filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
+                    mt: 1.5,
+                    "& .MuiAvatar-root": {
+                      width: 32,
+                      height: 32,
+                      ml: -0.5,
+                      mr: 1,
+                    },
+                    "&:before": {
+                      content: '""',
+                      display: "block",
+                      position: "absolute",
+                      top: 0,
+                      right: 14,
+                      width: 10,
+                      height: 10,
+                      bgcolor: "background.paper",
+                      transform: "translateY(-50%) rotate(45deg)",
+                      zIndex: 0,
+                    },
+                  },
+                }}
+                transformOrigin={{ horizontal: "right", vertical: "top" }}
+                anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
+              >
+                <MenuItem onClick={() => handleMenuItemClick("/profile")}>
+                  <ListItemIcon>
+                    <AccountCircleIcon fontSize="small" />
+                  </ListItemIcon>
+                  Thông tin cá nhân
+                </MenuItem>
+                <MenuItem onClick={() => handleMenuItemClick("/account")}>
+                  <ListItemIcon>
+                    <AccountBalanceWalletIcon fontSize="small" />
+                  </ListItemIcon>
+                  Tài khoản
+                </MenuItem>
+                <MenuItem
+                  onClick={() => handleMenuItemClick("/change-password")}
+                >
+                  <ListItemIcon>
+                    <VpnKeyIcon fontSize="small" />
+                  </ListItemIcon>
+                  Đổi mật khẩu
+                </MenuItem>
+                <Divider />
+                <MenuItem onClick={handleLogout}>
+                  <ListItemIcon>
+                    <ExitToAppIcon fontSize="small" />
+                  </ListItemIcon>
+                  Đăng xuất
+                </MenuItem>
+              </Menu>
             </>
           ) : (
             <>
