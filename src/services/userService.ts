@@ -1,50 +1,55 @@
 import api from "./axios";
-import { ApiResponse } from "../types/ApiResponse";
-import { ChangePasswordRequest, UserProfile } from "../types/dto";
+import { ApiResponse, ApiResponseBase } from "../types/ApiResponse";
+import {
+  UserDTO,
+  CreateUserDTO,
+  UpdateUserDTO,
+  ChangePasswordDTO,
+} from "../types/dto";
 
 const userService = {
-  changePassword: async (
-    userId: number,
-    passwordData: ChangePasswordRequest
-  ) => {
-    try {
-      const response = await api.put<ApiResponse<boolean>>(
-        `/user/${userId}/change-password`,
-        passwordData
-      );
-      return response.data;
-    } catch (error) {
-      console.error("Lỗi khi đổi mật khẩu:", error);
-      throw error;
-    }
+  getAllUsers: async () => {
+    const response = await api.get<ApiResponse<UserDTO[]>>("/user");
+    return response.data;
   },
 
-  getUserProfile: async (userId: number) => {
-    try {
-      const response = await api.get<ApiResponse<UserProfile>>(
-        `/user/${userId}`
-      );
-      return response.data;
-    } catch (error) {
-      console.error("Lỗi khi lấy thông tin người dùng:", error);
-      throw error;
-    }
+  getUserById: async (id: number) => {
+    const response = await api.get<ApiResponse<UserDTO>>(`/user/${id}`);
+    return response.data;
   },
 
-  updateUserProfile: async (
-    userId: number,
-    profileData: Partial<UserProfile>
-  ) => {
-    try {
-      const response = await api.put<ApiResponse<UserProfile>>(
-        `/user/${userId}`,
-        profileData
-      );
-      return response.data;
-    } catch (error) {
-      console.error("Lỗi khi cập nhật thông tin người dùng:", error);
-      throw error;
-    }
+  createUser: async (user: CreateUserDTO) => {
+    const response = await api.post<ApiResponse<UserDTO>>("/user", user);
+    return response.data;
+  },
+
+  updateUser: async (id: number, user: UpdateUserDTO) => {
+    const response = await api.put<ApiResponse<ApiResponseBase>>(
+      `/user/${id}`,
+      user
+    );
+    return response.data;
+  },
+
+  changePassword: async (id: number, passwordData: ChangePasswordDTO) => {
+    const response = await api.put<ApiResponse<ApiResponseBase>>(
+      `/user/${id}/change-password`,
+      passwordData
+    );
+    return response.data;
+  },
+
+  changeUserStatus: async (id: number, status: number) => {
+    const response = await api.put<ApiResponse<ApiResponseBase>>(
+      `/user/${id}/status`,
+      status
+    );
+    return response.data;
+  },
+
+  getCurrentUser: async () => {
+    const response = await api.get<ApiResponse<UserDTO>>("/user/current");
+    return response.data;
   },
 };
 

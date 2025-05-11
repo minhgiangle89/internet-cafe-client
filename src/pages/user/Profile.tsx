@@ -13,7 +13,7 @@ import {
 import { MainLayout } from "../../components/layout/MainLayout";
 import userService from "../../services/userService";
 import { format } from "date-fns";
-import { UserProfile } from "../../types/dto";
+import { UserDTO } from "../../types/dto";
 
 interface ProfileError {
   response?: {
@@ -25,7 +25,7 @@ interface ProfileError {
 }
 
 export const Profile = () => {
-  const [userProfile, setUserProfile] = useState<UserProfile>();
+  const [userProfile, setUserProfile] = useState<UserDTO>();
   const [formData, setFormData] = useState({
     email: "",
     fullName: "",
@@ -48,7 +48,7 @@ export const Profile = () => {
 
       try {
         setIsLoading(true);
-        const response = await userService.getUserProfile(user.id);
+        const response = await userService.getUserById(user.id);
 
         if (response.success) {
           setUserProfile(response.data);
@@ -119,13 +119,12 @@ export const Profile = () => {
     setSuccessMessage("");
 
     try {
-      const response = await userService.updateUserProfile(user.id, {
+      const response = await userService.updateUser(user.id, {
         ...formData,
         dateOfBirth: new Date(formData.dateOfBirth),
       });
 
       if (response.success) {
-        setUserProfile(response.data);
         setSuccessMessage("Thông tin cá nhân đã được cập nhật thành công");
         setIsEditing(false);
       } else {

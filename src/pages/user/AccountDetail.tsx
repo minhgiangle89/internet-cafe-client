@@ -28,7 +28,7 @@ import { MainLayout } from "../../components/layout/MainLayout";
 import accountService from "../../services/accountService";
 import { format } from "date-fns";
 import { vi } from "date-fns/locale";
-import { AccountInfo, Transaction } from "../../types/dto";
+import { AccountDTO, TransactionDTO } from "../../types/dto";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -62,8 +62,8 @@ function TabPanel(props: TabPanelProps) {
 }
 
 export const AccountDetail = () => {
-  const [accountInfo, setAccountInfo] = useState<AccountInfo>();
-  const [transactions, setTransactions] = useState<Transaction[]>([]);
+  const [accountInfo, setAccountInfo] = useState<AccountDTO>();
+  const [transactions, setTransactions] = useState<TransactionDTO[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
@@ -400,9 +400,12 @@ export const AccountDetail = () => {
                               {transaction.paymentMethod !== null
                                 ? getPaymentMethodText(
                                     transaction.paymentMethod
+                                      ? transaction.paymentMethod
+                                      : 0
                                   )
                                 : "-"}
                             </TableCell>
+                            ``
                             <TableCell>
                               {transaction.description || "-"}
                             </TableCell>
@@ -429,7 +432,6 @@ export const AccountDetail = () => {
         )}
       </Paper>
 
-      {/* Dialog Nạp tiền */}
       <Dialog open={isDepositDialogOpen} onClose={handleCloseDepositDialog}>
         <DialogTitle>Nạp tiền vào tài khoản</DialogTitle>
         <DialogContent>

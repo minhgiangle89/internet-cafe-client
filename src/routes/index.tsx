@@ -5,11 +5,14 @@ import { Register } from "../pages/auth/Register";
 import { Dashboard } from "../pages/admin/Dashboard";
 import { Home } from "../pages/client/Home";
 import { ProtectedRoute } from "../components/common/ProtectedRoute";
-import { Profile } from "../pages/user/Profile";
-import { ChangePassword } from "../pages/user/ChangePassword";
-import { AccountDetail } from "../pages/user/AccountDetail";
 import { Typography, Container, Box, Button } from "@mui/material";
 import { Link } from "react-router-dom";
+import { ComputerManagement } from "../pages/admin/ComputerManagement";
+import { SessionManagement } from "../pages/admin/SessionManagement";
+import { AccountManagement } from "../pages/admin/AccountManagement";
+import { UserManagement } from "../pages/admin/UserManagement";
+import { ClientDashboard } from "../pages/client/ClientDashboard";
+import { UserProfile } from "../pages/common/UserProfile";
 
 // Error Page Component
 const ErrorPage = () => {
@@ -65,6 +68,7 @@ const router = createBrowserRouter([
     element: <ForgotPassword />,
     errorElement: <ErrorPage />,
   },
+  // Admin routes
   {
     path: "/admin/dashboard",
     element: (
@@ -75,28 +79,84 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
   },
   {
+    path: "/admin/computers",
+    element: (
+      <ProtectedRoute requiredRole={[2]}>
+        <ComputerManagement />
+      </ProtectedRoute>
+    ),
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/admin/sessions",
+    element: (
+      <ProtectedRoute requiredRole={[2]}>
+        <SessionManagement />
+      </ProtectedRoute>
+    ),
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/admin/accounts",
+    element: (
+      <ProtectedRoute requiredRole={[2]}>
+        <AccountManagement />
+      </ProtectedRoute>
+    ),
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/admin/users",
+    element: (
+      <ProtectedRoute requiredRole={[2]}>
+        <UserManagement />
+      </ProtectedRoute>
+    ),
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/staff/computers",
+    element: (
+      <ProtectedRoute requiredRole={[1, 2]}>
+        <ComputerManagement />
+      </ProtectedRoute>
+    ),
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/staff/sessions",
+    element: (
+      <ProtectedRoute requiredRole={[1, 2]}>
+        <SessionManagement />
+      </ProtectedRoute>
+    ),
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/staff/accounts",
+    element: (
+      <ProtectedRoute requiredRole={[1, 2]}>
+        <AccountManagement />
+      </ProtectedRoute>
+    ),
+    errorElement: <ErrorPage />,
+  },
+  // Client routes
+  {
+    path: "/client/dashboard",
+    element: (
+      <ProtectedRoute requiredRole={[0, 1, 2]}>
+        <ClientDashboard />
+      </ProtectedRoute>
+    ),
+    errorElement: <ErrorPage />,
+  },
+  // Common routes
+  {
     path: "/profile",
     element: (
       <ProtectedRoute>
-        <Profile />
-      </ProtectedRoute>
-    ),
-    errorElement: <ErrorPage />,
-  },
-  {
-    path: "/change-password",
-    element: (
-      <ProtectedRoute>
-        <ChangePassword />
-      </ProtectedRoute>
-    ),
-    errorElement: <ErrorPage />,
-  },
-  {
-    path: "/account",
-    element: (
-      <ProtectedRoute>
-        <AccountDetail />
+        <UserProfile />
       </ProtectedRoute>
     ),
     errorElement: <ErrorPage />,
