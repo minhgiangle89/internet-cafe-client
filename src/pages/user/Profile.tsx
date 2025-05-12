@@ -32,6 +32,7 @@ export const Profile = () => {
     phoneNumber: "",
     address: "",
     dateOfBirth: "",
+    role: 1,
   });
   const [isEditing, setIsEditing] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
@@ -60,6 +61,7 @@ export const Profile = () => {
             dateOfBirth: response.data.dateOfBirth
               ? format(new Date(response.data.dateOfBirth), "yyyy-MM-dd")
               : "",
+            role: response.data.role,
           });
         } else {
           setErrorMessage(
@@ -104,6 +106,7 @@ export const Profile = () => {
         dateOfBirth: userProfile.dateOfBirth
           ? format(new Date(userProfile.dateOfBirth), "yyyy-MM-dd")
           : "",
+        role: 1,
       });
     }
     setErrorMessage("");

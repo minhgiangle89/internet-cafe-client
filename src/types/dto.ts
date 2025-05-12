@@ -199,6 +199,7 @@ export interface UpdateUserDTO {
   phoneNumber?: string;
   address?: string;
   dateOfBirth: Date;
+  role: number;
 }
 
 export interface ChangePasswordDTO {

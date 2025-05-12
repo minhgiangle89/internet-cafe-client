@@ -91,7 +91,7 @@ export const UserManagement = () => {
         phoneNumber: "",
         address: "",
         dateOfBirth: new Date(),
-        role: 0,
+        role: 1,
       });
       setSelectedUser(null);
     } else if (user) {
@@ -101,7 +101,7 @@ export const UserManagement = () => {
         setFormData({
           username: user.username,
           email: user.email,
-          password: "", // Password is not included in edit form
+          password: "",
           fullName: user.fullName,
           phoneNumber: user.phoneNumber || "",
           address: user.address || "",
@@ -120,14 +120,19 @@ export const UserManagement = () => {
     setOpenDialog(false);
   };
 
-  const handleSelectChange = (e: SelectChangeEvent<number>) => {
-    const { name, value } = e.target;
+  // const handleSelectChange = (e: SelectChangeEvent<number>) => {
+  //   const { name, value } = e.target;
+  //   setFormData((prev) => ({
+  //     ...prev,
+  //     [name as string]: value,
+  //   }));
+  // };
+  const handleRoleChange = (e: SelectChangeEvent<number>) => {
     setFormData((prev) => ({
       ...prev,
-      [name as string]: value,
+      role: Number(e.target.value),
     }));
   };
-
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | { name?: string; value: unknown }>
   ) => {
@@ -158,6 +163,7 @@ export const UserManagement = () => {
           phoneNumber: formData.phoneNumber,
           address: formData.address,
           dateOfBirth: formData.dateOfBirth,
+          role: formData.role,
         };
         await userService.updateUser(selectedUser.id, updateData);
       } else if (dialogType === "status" && selectedUser) {
@@ -175,7 +181,6 @@ export const UserManagement = () => {
   const handleCreateAccount = async (userId: number) => {
     try {
       await accountService.createAccount(userId);
-      // Optionally, you can show a success message here
     } catch (err) {
       console.error("Lỗi khi tạo tài khoản:", err);
       setError("Đã xảy ra lỗi khi tạo tài khoản");
@@ -394,7 +399,7 @@ export const UserManagement = () => {
                     name="role"
                     value={formData.role}
                     label="Vai trò"
-                    onChange={handleSelectChange}
+                    onChange={handleRoleChange}
                   >
                     <MenuItem value={1}>Sinh Viên</MenuItem>
                     <MenuItem value={2}>Giáo Viên</MenuItem>

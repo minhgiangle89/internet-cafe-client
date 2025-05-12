@@ -420,9 +420,6 @@ export const AccountManagement = () => {
                 variant="outlined"
                 value={paymentMethod}
                 onChange={(e) => setPaymentMethod(Number(e.target.value))}
-                SelectProps={{
-                  native: true,
-                }}
               >
                 <option value={0}>Tiền mặt</option>
                 <option value={1}>Thẻ tín dụng</option>

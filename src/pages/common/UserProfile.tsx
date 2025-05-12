@@ -75,6 +75,7 @@ export const UserProfile = () => {
     phoneNumber: "",
     address: "",
     dateOfBirth: new Date(),
+    role: 1,
   });
 
   const [passwordForm, setPasswordForm] = useState<ChangePasswordDTO>({
@@ -106,6 +107,7 @@ export const UserProfile = () => {
         phoneNumber: userResponse.data.phoneNumber || "",
         address: userResponse.data.address || "",
         dateOfBirth: new Date(userResponse.data.dateOfBirth),
+        role: userResponse.data.role,
       });
 
       // Get account details if available
