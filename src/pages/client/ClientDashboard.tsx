@@ -206,7 +206,7 @@ export const ClientDashboard = () => {
               </>
             ) : (
               <Typography>
-                Bạn chưa có tài khoản. Vui lòng liên hệ quản trị viên để tạo tài
+                Bạn chưa có tài khoản. Vui lòng liên hệ giáo viên để tạo tài
                 khoản.
               </Typography>
             )}

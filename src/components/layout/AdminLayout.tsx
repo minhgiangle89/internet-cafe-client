@@ -46,7 +46,7 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
 
   const menuItems = [
     { text: "Dashboard", icon: <DashboardIcon />, path: "/admin/dashboard" },
-    { text: "Quản lý người dùng", icon: <PeopleIcon />, path: "/admin/users" },
+    { text: "Quản lý sinh viên", icon: <PeopleIcon />, path: "/admin/users" },
     {
       text: "Quản lý máy tính",
       icon: <ComputerIcon />,

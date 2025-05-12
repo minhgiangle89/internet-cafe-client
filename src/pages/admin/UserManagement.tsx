@@ -184,12 +184,10 @@ export const UserManagement = () => {
 
   const getUserRoleText = (role: number) => {
     switch (role) {
-      case 0:
-        return "Khách hàng";
       case 1:
-        return "Nhân viên";
+        return "Sinh Viên";
       case 2:
-        return "Quản trị viên";
+        return "Giáo Viên";
       default:
         return "Không xác định";
     }
@@ -233,7 +231,7 @@ export const UserManagement = () => {
           mb: 3,
         }}
       >
-        <Typography variant="h4">Quản lý người dùng</Typography>
+        <Typography variant="h4">Quản lý sinh viên</Typography>
         <Button
           variant="contained"
           color="primary"
@@ -398,9 +396,8 @@ export const UserManagement = () => {
                     label="Vai trò"
                     onChange={handleSelectChange}
                   >
-                    <MenuItem value={0}>Khách hàng</MenuItem>
-                    <MenuItem value={1}>Nhân viên</MenuItem>
-                    <MenuItem value={2}>Quản trị viên</MenuItem>
+                    <MenuItem value={1}>Sinh Viên</MenuItem>
+                    <MenuItem value={2}>Giáo Viên</MenuItem>
                   </Select>
                 </FormControl>
               </>

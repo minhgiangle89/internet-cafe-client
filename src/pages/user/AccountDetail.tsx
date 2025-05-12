@@ -427,7 +427,7 @@ export const AccountDetail = () => {
           </>
         ) : (
           <Alert severity="info">
-            Bạn chưa có tài khoản. Vui lòng liên hệ quản trị viên.
+            Bạn chưa có tài khoản. Vui lòng liên hệ giáo viên.
           </Alert>
         )}
       </Paper>

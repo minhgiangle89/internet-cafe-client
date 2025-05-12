@@ -114,33 +114,6 @@ const router = createBrowserRouter([
     ),
     errorElement: <ErrorPage />,
   },
-  {
-    path: "/staff/computers",
-    element: (
-      <ProtectedRoute requiredRole={[1, 2]}>
-        <ComputerManagement />
-      </ProtectedRoute>
-    ),
-    errorElement: <ErrorPage />,
-  },
-  {
-    path: "/staff/sessions",
-    element: (
-      <ProtectedRoute requiredRole={[1, 2]}>
-        <SessionManagement />
-      </ProtectedRoute>
-    ),
-    errorElement: <ErrorPage />,
-  },
-  {
-    path: "/staff/accounts",
-    element: (
-      <ProtectedRoute requiredRole={[1, 2]}>
-        <AccountManagement />
-      </ProtectedRoute>
-    ),
-    errorElement: <ErrorPage />,
-  },
   // Client routes
   {
     path: "/client/dashboard",
