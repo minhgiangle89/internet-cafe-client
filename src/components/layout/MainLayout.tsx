@@ -146,7 +146,7 @@ export const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
       </Container>
       <Box component="footer" sx={{ py: 3, bgcolor: "background.paper" }}>
         <Typography variant="body2" color="text.secondary" align="center">
-          © {new Date().getFullYear()} Internet Cafe Management System
+          © {new Date().getFullYear()} Web Quản Lý Phòng Máy
         </Typography>
       </Box>
     </Box>

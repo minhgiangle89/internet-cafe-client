@@ -254,9 +254,9 @@ export const ComputerManagement = () => {
                 <Typography variant="body2" sx={{ mt: 1 }}>
                   Vị trí: {computer.location}
                 </Typography>
-                <Typography variant="body2">
+                {/* <Typography variant="body2">
                   Giá/giờ: {computer.hourlyRate.toLocaleString("vi-VN")} VNĐ
-                </Typography>
+                </Typography> */}
               </CardContent>
               <CardActions>
                 <Button
@@ -345,7 +345,7 @@ export const ComputerManagement = () => {
                 value={formData.location}
                 onChange={handleInputChange}
               />
-              <TextField
+              {/* <TextField
                 margin="dense"
                 name="hourlyRate"
                 label="Giá/giờ (VNĐ)"
@@ -354,7 +354,7 @@ export const ComputerManagement = () => {
                 variant="outlined"
                 value={formData.hourlyRate}
                 onChange={handleInputChange}
-              />
+              /> */}
             </>
           )}
 

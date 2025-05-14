@@ -121,6 +121,31 @@ export interface EndSessionDTO {
   notes?: string;
 }
 
+export interface ComputerStatusDetailDTO {
+  id: number;
+  name: string;
+  ipAddress: string;
+  location: string;
+  status: number;
+  statusText: string;
+  hourlyRate: number;
+  currentSessionId?: number;
+  currentUserId?: number;
+  currentUserName?: string;
+  sessionStartTime?: Date;
+  sessionDuration?: string;
+  currentSessionCost?: number;
+}
+
+export interface ComputerStatusSummaryDTO {
+  totalComputers: number;
+  availableComputers: number;
+  computersInUse: number;
+  computersInMaintenance: number;
+  computersOutOfOrder: number;
+  computerDetails: ComputerStatusDetailDTO[];
+}
+
 // Account DTOs
 export interface AccountDTO {
   id: number;

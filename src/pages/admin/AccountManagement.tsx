@@ -11,17 +11,17 @@ import {
   Paper,
   Button,
   CircularProgress,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-  TextField,
+  // Dialog,
+  // DialogTitle,
+  // DialogContent,
+  // DialogActions,
+  // TextField,
   Tabs,
   Tab,
 } from "@mui/material";
 import { AdminLayout } from "../../components/layout/AdminLayout";
 import accountService from "../../services/accountService";
-import { AccountDTO, DepositDTO, TransactionDTO } from "../../types/dto";
+import { AccountDTO, TransactionDTO } from "../../types/dto";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -49,17 +49,17 @@ export const AccountManagement = () => {
   const [accounts, setAccounts] = useState<AccountDTO[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [openDialog, setOpenDialog] = useState(false);
-  const [selectedAccount, setSelectedAccount] = useState<AccountDTO | null>(
-    null
-  );
-  const [dialogType, setDialogType] = useState<"deposit" | "withdraw">(
-    "deposit"
-  );
-  const [amount, setAmount] = useState<number>(0);
-  const [reason, setReason] = useState("");
-  const [paymentMethod, setPaymentMethod] = useState<number>(0);
-  const [referenceNumber, setReferenceNumber] = useState("");
+  // const [openDialog, setOpenDialog] = useState(false);
+  // const [selectedAccount, setSelectedAccount] = useState<AccountDTO | null>(
+  //   null
+  // );
+  // const [dialogType, setDialogType] = useState<"deposit" | "withdraw">(
+  //   "deposit"
+  // );
+  // const [amount, setAmount] = useState<number>(0);
+  // const [reason, setReason] = useState("");
+  // const [paymentMethod, setPaymentMethod] = useState<number>(0);
+  // const [referenceNumber, setReferenceNumber] = useState("");
   const [transactions, setTransactions] = useState<TransactionDTO[]>([]);
   const [tabValue, setTabValue] = useState(0);
   const [selectedAccountDetails, setSelectedAccountDetails] =
@@ -93,51 +93,51 @@ export const AccountManagement = () => {
     fetchData();
   }, []);
 
-  const handleOpenDialog = (
-    type: "deposit" | "withdraw",
-    account: AccountDTO
-  ) => {
-    setDialogType(type);
-    setSelectedAccount(account);
-    setAmount(0);
-    setReason("");
-    setPaymentMethod(0);
-    setReferenceNumber("");
-    setOpenDialog(true);
-  };
+  // const handleOpenDialog = (
+  //   type: "deposit" | "withdraw",
+  //   account: AccountDTO
+  // ) => {
+  //   setDialogType(type);
+  //   setSelectedAccount(account);
+  //   setAmount(0);
+  //   setReason("");
+  //   setPaymentMethod(0);
+  //   setReferenceNumber("");
+  //   setOpenDialog(true);
+  // };
 
-  const handleCloseDialog = () => {
-    setOpenDialog(false);
-  };
+  // const handleCloseDialog = () => {
+  //   setOpenDialog(false);
+  // };
 
-  const handleConfirm = async () => {
-    if (!selectedAccount) return;
+  // const handleConfirm = async () => {
+  //   if (!selectedAccount) return;
 
-    try {
-      if (dialogType === "deposit") {
-        const depositData: DepositDTO = {
-          accountId: selectedAccount.id,
-          amount,
-          paymentMethod,
-          referenceNumber: referenceNumber || undefined,
-        };
-        await accountService.deposit(depositData);
-      } else {
-        await accountService.withdraw({
-          accountId: selectedAccount.id,
-          amount,
-          reason: reason || undefined,
-        });
-      }
+  //   try {
+  //     if (dialogType === "deposit") {
+  //       const depositData: DepositDTO = {
+  //         accountId: selectedAccount.id,
+  //         amount,
+  //         paymentMethod,
+  //         referenceNumber: referenceNumber || undefined,
+  //       };
+  //       await accountService.deposit(depositData);
+  //     } else {
+  //       await accountService.withdraw({
+  //         accountId: selectedAccount.id,
+  //         amount,
+  //         reason: reason || undefined,
+  //       });
+  //     }
 
-      // Refresh data after successful operation
-      fetchData();
-      handleCloseDialog();
-    } catch (err) {
-      console.error("Lỗi khi thực hiện giao dịch:", err);
-      setError("Đã xảy ra lỗi khi thực hiện giao dịch");
-    }
-  };
+  //     // Refresh data after successful operation
+  //     fetchData();
+  //     handleCloseDialog();
+  //   } catch (err) {
+  //     console.error("Lỗi khi thực hiện giao dịch:", err);
+  //     setError("Đã xảy ra lỗi khi thực hiện giao dịch");
+  //   }
+  // };
 
   const handleViewTransactions = async (account: AccountDTO) => {
     try {
@@ -219,7 +219,7 @@ export const AccountManagement = () => {
         <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
           <Tabs value={tabValue} onChange={handleChangeTab}>
             <Tab label="Danh sách tài khoản" />
-            <Tab label="Lịch sử giao dịch" disabled={!selectedAccountDetails} />
+            <Tab label="Lịch sử sử dụng" disabled={!selectedAccountDetails} />
           </Tabs>
         </Box>
 
@@ -243,8 +243,8 @@ export const AccountManagement = () => {
                   <TableRow>
                     <TableCell>Mã TK</TableCell>
                     <TableCell>Người dùng</TableCell>
-                    <TableCell>Số dư (VNĐ)</TableCell>
-                    <TableCell>Lần nạp cuối</TableCell>
+                    <TableCell>Số giờ</TableCell>
+                    {/* <TableCell>Lần nạp cuối</TableCell> */}
                     <TableCell>Lần sử dụng cuối</TableCell>
                     <TableCell>Thao tác</TableCell>
                   </TableRow>
@@ -257,11 +257,11 @@ export const AccountManagement = () => {
                       <TableCell>
                         {account.balance.toLocaleString("vi-VN")}
                       </TableCell>
-                      <TableCell>
+                      {/* <TableCell>
                         {new Date(account.lastDepositDate).toLocaleString(
                           "vi-VN"
                         )}
-                      </TableCell>
+                      </TableCell> */}
                       <TableCell>
                         {new Date(account.lastUsageDate).toLocaleString(
                           "vi-VN"
@@ -269,7 +269,7 @@ export const AccountManagement = () => {
                       </TableCell>
                       <TableCell>
                         <Box sx={{ display: "flex", gap: 1 }}>
-                          <Button
+                          {/* <Button
                             size="small"
                             color="primary"
                             variant="outlined"
@@ -286,7 +286,7 @@ export const AccountManagement = () => {
                             }
                           >
                             Rút tiền
-                          </Button>
+                          </Button> */}
                           <Button
                             size="small"
                             color="info"
@@ -309,13 +309,13 @@ export const AccountManagement = () => {
           {selectedAccountDetails && (
             <>
               <Box sx={{ mb: 3 }}>
-                <Typography variant="h5">Lịch sử giao dịch</Typography>
+                <Typography variant="h5">Lịch sử sử dụng</Typography>
                 <Typography variant="subtitle1">
                   Tài khoản: {selectedAccountDetails.userName} (Mã:{" "}
                   {selectedAccountDetails.id})
                 </Typography>
                 <Typography variant="subtitle2">
-                  Số dư hiện tại:{" "}
+                  Số giờ{" "}
                   {selectedAccountDetails.balance.toLocaleString("vi-VN")} VNĐ
                 </Typography>
               </Box>
@@ -375,7 +375,7 @@ export const AccountManagement = () => {
       </Box>
 
       {/* Dialog for deposit/withdraw */}
-      <Dialog
+      {/* <Dialog
         open={openDialog}
         onClose={handleCloseDialog}
         maxWidth="sm"
@@ -393,7 +393,7 @@ export const AccountManagement = () => {
                 Tài khoản: {selectedAccount.userName}
               </Typography>
               <Typography variant="subtitle2">
-                Số dư hiện tại:{" "}
+                Số giờ sử dụng:{" "}
                 {selectedAccount.balance.toLocaleString("vi-VN")} VNĐ
               </Typography>
             </Box>
@@ -460,8 +460,8 @@ export const AccountManagement = () => {
           >
             {dialogType === "deposit" ? "Nạp tiền" : "Rút tiền"}
           </Button>
-        </DialogActions>
-      </Dialog>
+        </DialogActions> 
+      </Dialog>*/}
     </AdminLayout>
   );
 };

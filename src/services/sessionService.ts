@@ -5,6 +5,7 @@ import {
   StartSessionDTO,
   EndSessionDTO,
   SessionDetailsDTO,
+  ComputerStatusSummaryDTO,
 } from "../types/dto";
 
 const sessionService = {
@@ -82,6 +83,13 @@ const sessionService = {
           "Content-Type": "application/json",
         },
       }
+    );
+    return response.data;
+  },
+
+  getComputerStatusSummary: async () => {
+    const response = await api.get<ApiResponse<ComputerStatusSummaryDTO>>(
+      "/session/computer-status-summary"
     );
     return response.data;
   },

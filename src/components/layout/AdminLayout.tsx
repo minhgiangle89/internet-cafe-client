@@ -109,7 +109,7 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap component="div">
-            Internet Cafe Management
+            Web Quản Lý Phòng Máy
           </Typography>
         </Toolbar>
       </AppBar>
