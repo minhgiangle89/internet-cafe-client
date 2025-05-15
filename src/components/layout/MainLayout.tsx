@@ -54,7 +54,7 @@ export const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
         <Toolbar>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             <Link to="/" style={{ color: "white", textDecoration: "none" }}>
-              Internet Cafe
+              Quản lý phòng máy
             </Link>
           </Typography>
           {user ? (

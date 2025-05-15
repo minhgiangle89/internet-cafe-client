@@ -142,7 +142,7 @@ export const Dashboard = () => {
   const getStatusChip = (status: number) => {
     switch (status) {
       case 0:
-        return <Chip label="Khả dụng" color="success" size="small" />;
+        return <Chip label="Máy trống" color="success" size="small" />;
       case 1:
         return <Chip label="Đang sử dụng" color="primary" size="small" />;
       case 2:
@@ -235,7 +235,7 @@ export const Dashboard = () => {
 
       {/* Statistics Cards */}
       <Grid container spacing={3} sx={{ mb: 4 }}>
-        <Grid sx={{ width: { xs: "100%", sm: "50%", md: "25%" } }}>
+        <Grid sx={{ width: { xs: "100%", sm: "50%", md: "33%" } }}>
           <Card sx={{ bgcolor: "#e3f2fd", height: 140 }}>
             <CardContent
               sx={{ display: "flex", flexDirection: "column", height: "100%" }}
@@ -284,14 +284,13 @@ export const Dashboard = () => {
                 sx={{ mt: 1, height: 8, borderRadius: 1 }}
               />
               <Typography variant="body2" color="text.secondary">
-                Đang sử dụng: {computerStatusSummary?.computersInUse ?? 0} (
-                {getUsagePercentage().toFixed(1)}%)
+                Đang sử dụng: {computerStatusSummary?.computersInUse ?? 0}
               </Typography>
             </CardContent>
           </Card>
         </Grid>
 
-        <Grid sx={{ width: { xs: "100%", sm: "50%", md: "25%" } }}>
+        <Grid sx={{ width: { xs: "100%", sm: "50%", md: "33%" } }}>
           <Card sx={{ bgcolor: "#f3e5f5", height: 140 }}>
             <CardContent
               sx={{ display: "flex", flexDirection: "column", height: "100%" }}
@@ -336,7 +335,7 @@ export const Dashboard = () => {
                       {computerStatusSummary.availableComputers}
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
-                      Khả dụng
+                      Máy trống
                     </Typography>
                   </Box>
                 </Grid>
@@ -406,7 +405,6 @@ export const Dashboard = () => {
                   <TableCell>Trạng thái</TableCell>
                   <TableCell>Người dùng</TableCell>
                   <TableCell>Thời gian sử dụng</TableCell>
-                  <TableCell align="right">Chi phí (VNĐ)</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -473,12 +471,6 @@ export const Dashboard = () => {
                         "-"
                       )}
                     </TableCell>
-                    <TableCell align="right">
-                      {computer.currentSessionCost !== undefined &&
-                      computer.currentSessionCost !== null
-                        ? computer.currentSessionCost.toLocaleString("vi-VN")
-                        : "-"}
-                    </TableCell>
                   </TableRow>
                 ))}
               </TableBody>
@@ -499,7 +491,6 @@ export const Dashboard = () => {
                   <TableCell>Người dùng</TableCell>
                   <TableCell>Bắt đầu</TableCell>
                   <TableCell>Thời gian</TableCell>
-                  <TableCell>Chi phí</TableCell>
                   <TableCell>Trạng thái</TableCell>
                 </TableRow>
               </TableHead>
@@ -514,9 +505,6 @@ export const Dashboard = () => {
                         {new Date(session.startTime).toLocaleString("vi-VN")}
                       </TableCell>
                       <TableCell>{formatDuration(session.duration)}</TableCell>
-                      <TableCell>
-                        {session.totalCost.toLocaleString("vi-VN")} VNĐ
-                      </TableCell>
                       <TableCell>
                         <Chip
                           label={getSessionStatusText(session.status)}

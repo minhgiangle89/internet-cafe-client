@@ -64,7 +64,7 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
     <div>
       <Toolbar>
         <Typography variant="h6" noWrap>
-          Admin Panel
+          Menu Quản Lý
         </Typography>
       </Toolbar>
       <Divider />
